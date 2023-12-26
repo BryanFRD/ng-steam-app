@@ -11,4 +11,9 @@ import { RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'ng-steam-app';
+  items = [
+    { name: 'Home', link: '/home' },
+    { name: 'About', link: '/about' },
+    { name: 'Contact', link: '/contact' }
+  ];
 }
