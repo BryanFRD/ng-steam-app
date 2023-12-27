@@ -1,5 +1,7 @@
 import axios, { AxiosInstance} from 'axios';
 
+const limit = 18*5;
+
 const steamApi: AxiosInstance = axios.create({
   baseURL: 'https://pokeapi.co/api/v2/',
 });
@@ -21,17 +23,16 @@ const get = (url: string): GetResponse<any> => {
     });
 }
 
-const getPokemonsAtPage = (page: number = 0): GetResponse<Pokemon|any> => {
-  return get(`pokemon?limit=50&offset=${page * 50}`).then((response) => {
+const getPokemonsAtPage = (page: number = 0): GetResponse<{hasNext: boolean, pokemons: Pokemon[]}|any> => {
+  return get(`pokemon?limit=${limit}&offset=${page * limit}`).then((response) => {
     const pokemons: Pokemon[] = response.data?.results ?? [];
     const promises = pokemons.map((pokemon: any) => {
       return get(pokemon.url.replace(steamApi.getUri(), ''));
     });
     
-    
     return Promise.all(promises).then((responses) => {
       return {
-        data: responses.map((response) => response.data),
+        data: {next: response.data?.next, pokemons: responses.map((response) => response.data)},
         error: null,
         status: 200
       }
