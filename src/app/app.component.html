@@ -2,7 +2,7 @@
   <div class="flex flex-col items-center m-20 gap-10">
     <h1 class="text-7xl font-semibold">{{title}}</h1>
     <div infiniteScroll (nearEnd)="showMore()" class="flex flex-wrap">
-      <a *ngFor="let pokemon of pokemons" [href]="['/pokemon', pokemon.id].join('/')" class="flex flex-col gap-1 w-auto group">
+      <a *ngFor="let pokemon of pokemons" [href]="'/pokemon/' + pokemon.id" class="flex flex-col gap-1 group w-32">
         <img [src]="pokemon.sprites.front_default" [alt]="pokemon.name" class="img-thumbnail group-hover:hidden">
         <img [src]="pokemon.sprites.front_shiny" [alt]="pokemon.name" class="img-thumbnail hidden group-hover:block">
         <span class="text-center">{{pokemon.name}}</span>

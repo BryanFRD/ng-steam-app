@@ -34,8 +34,7 @@ export class AppComponent implements OnInit {
     this.page++;
     getPokemonsAtPage(this.page).then((response) => {
       this.pokemons = this.pokemons.concat(response.data?.pokemons ?? []);
-      console.log(response.data)
-      this.hasMore = response.data?.next ?? false;
+      this.hasMore = response.data.hasNext ?? false;
     }).finally(() => this.loading = false);
   }
   
